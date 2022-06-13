@@ -130,6 +130,9 @@ export const parseAtom = (xmldata) => {
     generator,
     language,
     published: toDate(updated),
-    entries
+    entries,
+    totalResults: feed['opensearch:totalResults']['#text'],
+    startIndex: feed['opensearch:startIndex']['#text'],
+    itemsPerPage: feed['opensearch:itemsPerPage']['#text'],
   }
 }

@@ -1,4 +1,4 @@
-// feed-reader@5.0.1, by @ndaidong - built with esbuild at 2022-06-13T13:29:45.762Z - published under MIT license
+// feed-reader@5.0.1, by @ndaidong - built with esbuild at 2022-06-13T13:47:10.072Z - published under MIT license
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -14542,7 +14542,10 @@ var parseAtom = (xmldata) => {
     generator,
     language,
     published: toDate(updated),
-    entries
+    entries,
+    totalResults: feed["opensearch:totalResults"]["#text"],
+    startIndex: feed["opensearch:startIndex"]["#text"],
+    itemsPerPage: feed["opensearch:itemsPerPage"]["#text"]
   };
 };
 
