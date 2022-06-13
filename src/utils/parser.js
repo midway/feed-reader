@@ -64,12 +64,23 @@ const nomalizeRssItem = (entry) => {
 }
 
 const nomalizeAtomItem = (entry) => {
+  const author_count = Object.entries(entry.author).length;
+  const authors = Object.entries(entry.author).map(x => x[1].name).join(', ')
+
+  const categories = Object.entries(entry.category).map(x => x[1]['@_term']).join(', ')
+
   return {
-    title: toText(entry.title),
+    title: toText(entry.title).replaceAll('\n', ''),
     link: purifyUrl(toLink(entry.link)),
-    description: toDesc(entry.summary || entry.description || entry.content),
-    published: toDate(toText(entry.updated || entry.published))
-  }
+    id: entry.id,
+    description: ( entry.summary || entry.description || entry.content ).replaceAll('\n', ''),
+    published: toDate(toText(entry.updated || entry.published)),
+    author_count,
+    authors,
+    primary_category: entry['arxiv:primary_category']['@_term'],
+    categories,
+    comment: entry['arxiv:comment'] ? entry['arxiv:comment']['#text'] : ''
+  };
 }
 
 export const parseRSS = (xmldata) => {
